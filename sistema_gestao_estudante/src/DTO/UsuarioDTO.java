@@ -15,7 +15,12 @@ public class UsuarioDTO {
 	}
 	public void setId_Usuario(int id_Usuario) {
 		this.id_Usuario = id_Usuario;
-	}
+	}package DTO;
+    
+    public class UsuarioDTO {
+        
+    }
+    
 	public String getSenha_Usuario() {
 		return senha_Usuario;
 	}
