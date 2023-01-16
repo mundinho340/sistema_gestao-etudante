@@ -4,12 +4,22 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.ButtonGroup;
+
+import DAO.UsuarioDAO;
+import DTO.UsuarioDTO;
 
 public class frmLoginBView {
 
@@ -76,6 +86,30 @@ public class frmLoginBView {
 		buttonGroup.add(btnLogar);
 		btnLogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String nome_Usuario , senha_Usuario;
+					nome_Usuario =txtNomeUsuario.getText();
+					senha_Usuario= txtSenhaUsuario.getText();
+					
+					UsuarioDTO objusuariodto = new UsuarioDTO();
+					objusuariodto.setNome_Usuario(nome_Usuario);
+					objusuariodto.setSenha_Usuario(senha_Usuario);
+					
+					UsuarioDAO objusuariodao= new UsuarioDAO();
+					ResultSet rsusuariodao = objusuariodao.autenticacaoUsuario(objusuariodto);
+					if(rsusuariodao.next()){
+						//chamar tela que eu quero abrir
+						frmPrincipalVIEW oobjfrmprincipalview = new frmPrincipalVIEW();
+						oobjfrmprincipalview.setVisible(true);
+						frame.dispose();
+					}else{
+						//enviar mensagem que incorrecto
+						JOptionPane.showMessageDialog(null ,"Usuario ou senha invalida");
+					}
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null,"FMRLOGINVIEW"+e);
+				}
+				
 			}
 		});
 		btnLogar.setBounds(35, 188, 89, 23);
@@ -83,4 +117,3 @@ public class frmLoginBView {
 	}
 
 }
-
