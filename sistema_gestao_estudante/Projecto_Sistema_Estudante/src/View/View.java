@@ -302,3 +302,6 @@ public class GestaoDeEstudante extends JFrame implements ActionListener,MouseLis
 		
 	}
 }
+public class View {
+    
+}
